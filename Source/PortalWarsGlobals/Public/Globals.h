@@ -22,6 +22,14 @@ enum class EBodyPart : uint8
 };
 
 UENUM(BlueprintType)
+enum class EBotDifficulty : uint8
+{
+	Easy = 0,
+	Medium = 1,
+	Hard = 2
+};
+
+UENUM(BlueprintType)
 enum class ECustomizationType : uint8
 {
 	None = 0,
@@ -67,6 +75,18 @@ enum class EChallengeType : uint8
 	Daily = 1,
 	Weekly = 2,
 	Weapon = 3
+};
+
+UENUM(BlueprintType)
+enum class EServerType : uint8
+{
+	LAN = 0,
+	Unranked = 1,
+	Ranked = 2,
+	Custom = 3,
+	Standard = 4,
+	Simulation = 5,
+	WaitingArea = 6
 };
 
 UENUM(BlueprintType)
@@ -484,6 +504,98 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float LifeSpan;                          
+};
+
+USTRUCT(Blueprintable)
+struct FGameConfig
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString ServerName;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int MapID;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int GameModeID;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int MatchTime;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int ScoreLimit;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int RespawnTime;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int PrimaryWeaponID;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int SecondaryWeaponID;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bPickupsEnabled;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bBotsEnabled;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EBotDifficulty BotDifficulty;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bShouldShowRadar;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bEnableBoundaries;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bEnableJetpack;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bEnableSprint;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bEnablePortalGun;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bUnlimitedAmmo;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bUnlimitedClipSize;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bHeadshotsOnly;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bBigHeadMode;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float WalkSpeedModifier;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float JumpHeightModifier;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float GravityModifier;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float ThrusterPackFuelModifier;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float ThrusterPackBoostModifier;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float MeleeDmgModifier;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float HealthModifier;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool bRandomHillsEnabled;
 };
 
 /**
