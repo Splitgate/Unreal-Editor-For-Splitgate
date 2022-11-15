@@ -72,3 +72,9 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# ur custom paks folder
+[Pp]aks/*
+[Uu]nreal[Pp]ak/*
+[Uu]4[Pp]ak/*
+Accustomed_Packages/*
