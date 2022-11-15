@@ -127,6 +127,17 @@ enum class EWeaponState : uint8
 };
 
 USTRUCT(Blueprintable)
+struct FCheatViolations
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<int> Counts;
+};
+
+USTRUCT(Blueprintable)
 struct FWeaponData
 {
 	GENERATED_BODY()

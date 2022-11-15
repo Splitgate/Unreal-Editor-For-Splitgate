@@ -26,16 +26,16 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Current Values")
 	int ReplicatedRemainingTime;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Config")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	FString PlaylistType;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Config")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	EServerType ServerType;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Config")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	FGameConfig GameConfig;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Config")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	int MaxPlayers;
 
 	UFUNCTION(BlueprintCallable)
