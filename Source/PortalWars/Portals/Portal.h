@@ -69,7 +69,9 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Portal Mesh")
 	UStaticMeshComponent* PortalRingMesh;
-	//APortalWall* PortalWall;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Portal Config")
+	class APortalWall* PortalWall;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Portal Mesh")
 	UStaticMeshComponent* SmallPortalOverlapBox;
