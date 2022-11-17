@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "States/PortalWarsBaseGameState.h"
-#include "../Misc/PortalWarsCustomAntiCheat.h"
+#include "PortalWarsBaseGameState.h"
+#include "../../Misc/PortalWarsCustomAntiCheat.h"
 #include "PortalWarsGameState.generated.h"
 
 /**

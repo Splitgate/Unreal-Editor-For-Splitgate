@@ -13,16 +13,16 @@ class PORTALWARS_API APortalWarsBaseGameMode : public AGameMode
 	
 public:
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	int32 MaxPlayers;
 	
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	int32 MaxBots;
 	
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	TSubclassOf<class APawn> BotPawnClass;
 	
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Game Config")
 	UClass* AIControllerClass; // TSubclassOf<class APortalWarsAIController>
 
 
