@@ -14,11 +14,12 @@
 // Enums And Structs
 
 UENUM(BlueprintType)
-enum class EMapSelectability : uint8
+enum class EReplayCameraMode : uint8
 {
 	None = 0,
-	Default = 1,
-	QA = 2
+	Free = 1,
+	FirstPerson = 2,
+	ThirdPerson = 3
 };
 
 UENUM(BlueprintType)
@@ -27,6 +28,35 @@ enum class EBodyPart : uint8
 	Torso = 0,
 	Head = 1,
 	Feet = 2
+};
+
+UENUM(BlueprintType)
+enum class EHitDirection : uint8
+{
+	F = 0,
+	FL = 1,
+	FR = 2,
+	B = 3,
+	BL = 4,
+	BR = 5,
+	L = 6,
+	R = 7
+};
+
+UENUM(BlueprintType)
+enum class EPWHitType : uint8
+{
+	Normal = 0,
+	Headshot = 1,
+	Death = 2,
+};
+
+UENUM(BlueprintType)
+enum class EMapSelectability : uint8
+{
+	None = 0,
+	Default = 1,
+	QA = 2
 };
 
 UENUM(BlueprintType)
@@ -132,6 +162,44 @@ enum class EWeaponState : uint8
 	FiringPortal = 8,
 	ClosingPortal = 9,
 	Inspecting = 10
+};
+
+USTRUCT(Blueprintable)
+struct FTransform_NetQuantize : public FTransform
+{
+	GENERATED_BODY()
+};
+
+USTRUCT(Blueprintable)
+struct FTakeHitInfo
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	uint8 ActualDamage;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float LastTakeHitTime;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FDamageEvent DamageEvent;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EHitDirection HitDirection;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EBodyPart BodyPart;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TWeakObjectPtr<class ACharacter> PawnInstigator;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EPWHitType HitType;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	uint8 EnsureReplicationByte;
 };
 
 USTRUCT(Blueprintable)

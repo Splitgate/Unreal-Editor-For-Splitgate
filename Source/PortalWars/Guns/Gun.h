@@ -150,10 +150,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Events")
 	UObject* EquipEvent;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Events")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Events")
 	UAmmoCounterWidgetComponent* AmmoCounter;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Events")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Events")
 	UAmmoCounterWidgetComponent* ChargeCounter;
 
 public:

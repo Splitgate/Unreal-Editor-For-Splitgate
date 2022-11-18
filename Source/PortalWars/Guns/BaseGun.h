@@ -33,10 +33,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Muzzle Config")
 	FVector Muzzle3pScale;
 	
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Muzzle Config")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Muzzle Config")
 	UParticleSystemComponent* MuzzlePSC_1P;
 	
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Muzzle Config")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Muzzle Config")
 	UParticleSystemComponent* MuzzlePSC_3P;
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Muzzle Config")
@@ -45,10 +45,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Character")
 	APawn* MyPawn; //APortalWarsCharacter* MyPawn;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Character")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Character")
 	USkeletalMeshComponent* Mesh1P;
 	
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Character")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Character")
 	UStaticMeshComponent* Mesh3P;
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character")

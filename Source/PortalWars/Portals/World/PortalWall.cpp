@@ -2,3 +2,9 @@
 
 #include "PortalWall.h"
 
+APortalWall::APortalWall()
+{
+	PrimaryActorTick.bCanEverTick = true;
+
+	PortalWallMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("portalWallMesh"));
+}

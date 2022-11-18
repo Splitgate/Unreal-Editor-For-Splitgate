@@ -15,7 +15,9 @@ class PORTALWARS_API APortalWall : public AActor
 	
 public:	
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Portal Wall Config")
+	APortalWall();
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Portal Wall Config")
 	UStaticMeshComponent* PortalWallMesh;        
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Portal Wall Config")
