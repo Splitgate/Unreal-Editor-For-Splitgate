@@ -116,11 +116,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void OnRep_MyPawn() {};
 	
-	UFUNCTION(BlueprintCallable)
-	void InitializePortalColor() {};
+	UFUNCTION(BlueprintNativeEvent)
+	void InitializePortalColor();
 	
-	UFUNCTION(BlueprintCallable)
-	void InitializePortal() {};
+	UFUNCTION(BlueprintNativeEvent)
+	void InitializePortal();
 
 	UFUNCTION(BlueprintNativeEvent)
 	void EndOverlapSmallBox(UPrimitiveComponent* OverlappedComponent, class AActor* OtherActor, UPrimitiveComponent* OtherComp, int OtherBodyIndex);

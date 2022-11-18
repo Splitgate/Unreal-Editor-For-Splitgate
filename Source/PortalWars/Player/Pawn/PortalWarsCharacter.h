@@ -368,8 +368,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ServerSetZooming(bool bNewZooming) {};
 	
-	UFUNCTION(BlueprintCallable)
-	void ServerSetOwnerOfLastPortalUsed(class APortal* LastPortalUsed) {};
+	UFUNCTION(BlueprintNativeEvent)
+	void ServerSetOwnerOfLastPortalUsed(class APortal* LastPortalUsed);
 	
 	UFUNCTION(BlueprintCallable)
 	void ServerSetOverlappingPortalCollisionProfiles() {};

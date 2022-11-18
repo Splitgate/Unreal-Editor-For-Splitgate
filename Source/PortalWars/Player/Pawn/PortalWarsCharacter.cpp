@@ -26,6 +26,11 @@ void APortalWarsCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 }
 
+void APortalWarsCharacter::ServerSetOwnerOfLastPortalUsed_Implementation(class APortal* LastPortalUsed)
+{
+
+}
+
 void APortalWarsCharacter::OnReplayCameraModeChanged_Implementation(enum class EReplayCameraMode NewReplayCameraMode)
 {
 

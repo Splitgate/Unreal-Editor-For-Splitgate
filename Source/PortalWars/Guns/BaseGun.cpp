@@ -6,7 +6,7 @@ ABaseGun::ABaseGun()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
+	SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent")));
 
 	MuzzlePSC_1P = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("MuzzlePSC_1P"));
 	MuzzlePSC_3P = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("MuzzlePSC_3P"));

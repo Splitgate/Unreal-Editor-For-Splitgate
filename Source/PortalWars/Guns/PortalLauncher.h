@@ -59,8 +59,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Portal Config")
 	FName TrailTargetParam;
 
-	UFUNCTION(BlueprintCallable)
-	void SpawnPortalFX_Multicast(const FVector_NetQuantize& EndPoint) {};
+	UFUNCTION(BlueprintNativeEvent)
+	void SpawnPortalFX_Multicast(const FVector_NetQuantize& EndPoint);
 	
 	UFUNCTION(BlueprintCallable)
 	void ServerClosePortal(bool bIsLeftPortal) {};

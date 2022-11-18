@@ -3,6 +3,16 @@
 
 #include "Portal.h"
 
+void APortal::InitializePortalColor_Implementation()
+{
+
+}
+
+void APortal::InitializePortal_Implementation()
+{
+
+}
+
 void APortal::EndOverlapSmallBox_Implementation(UPrimitiveComponent* OverlappedComponent, class AActor* OtherActor, UPrimitiveComponent* OtherComp, int OtherBodyIndex)
 {
 
