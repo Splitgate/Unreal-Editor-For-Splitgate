@@ -14,6 +14,14 @@
 // Enums And Structs
 
 UENUM(BlueprintType)
+enum class EMapSelectability : uint8
+{
+	None = 0,
+	Default = 1,
+	QA = 2
+};
+
+UENUM(BlueprintType)
 enum class EBodyPart : uint8
 {
 	Torso = 0,
@@ -607,6 +615,37 @@ public:
 		
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool bRandomHillsEnabled;
+};
+
+USTRUCT(Blueprintable)
+struct FPWTableRowBase : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 ID;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText DisplayName;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UTexture2D> DisplayImage;
+};
+
+USTRUCT(Blueprintable)
+struct FMapData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString MapName;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<EMapSelectability> Selectability;
 };
 
 /**
