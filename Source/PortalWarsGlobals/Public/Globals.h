@@ -1353,6 +1353,17 @@ public:
 	int32 CrosshairWeaponID;
 };
 
+USTRUCT(Blueprintable)
+struct FCustomReticleData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FReticleData ReticleData;
+};
+
 /**
  *
  */
