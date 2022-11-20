@@ -6,7 +6,7 @@ public class PortalWarsGlobals : ModuleRules
 	{
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine"});
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "MediaAssets", "InputCore" });
  
 		PublicIncludePaths.AddRange(new string[] {"PortalWarsGlobals/Public"});
 		PrivateIncludePaths.AddRange(new string[] {"PortalWarsGlobals/Private"});

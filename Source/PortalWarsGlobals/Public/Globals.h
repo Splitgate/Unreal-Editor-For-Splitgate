@@ -9,9 +9,72 @@
 #include "Animation/AnimSequence.h"
 #include "Animation/BlendSpace1D.h"
 #include "GameFramework/DamageType.h"
+#include "GameFramework/GameMode.h"
+#include "Engine/StaticMesh.h"
+#include "MediaSource.h"
+#include "InputCoreTypes.h"
 #include "Globals.generated.h"
 
 // Enums And Structs
+
+UENUM(BlueprintType)
+enum class ERegionSelectability : uint8
+{
+	Matchmaking = 0,
+	Custom = 1
+};
+
+UENUM(BlueprintType)
+enum class EChallengeType : uint8
+{
+	None = 0,
+	Daily = 1,
+	Weekly = 2,
+	Weapon = 3
+};
+
+UENUM(BlueprintType)
+enum class ECustomizationAvailability : uint8
+{
+	Normal = 0,
+	Default = 1,
+	Challenge = 2,
+	Reward = 3,
+	Store = 4,
+	Partner = 5,
+	Streamer = 6,
+	DLC = 7,
+	VIP = 8,
+	CreatorCode = 9,
+	BattlePass = 10,
+	Reserved = 11,
+	Developer = 12,
+	Decommissioned = 13
+};
+
+UENUM(BlueprintType)
+enum class EVotingPriority : uint8
+{
+	Normal = 0,
+	High = 1
+};
+
+UENUM(BlueprintType)
+enum class EPlaylistType : uint8
+{
+	Unranked = 0,
+	Ranked = 1,
+	Featured = 2
+};
+
+UENUM(BlueprintType)
+enum class EGameModeSelectability : uint8
+{
+	None = 0,
+	Custom = 1,
+	Standard = 2,
+	Hardcore = 3
+};
 
 UENUM(BlueprintType)
 enum class EReplayCameraMode : uint8
@@ -104,15 +167,6 @@ enum class ECustomizationRarity : uint8
 	Rare = 2,
 	Epic = 3,
 	Legendary = 4
-};
-
-UENUM(BlueprintType)
-enum class EChallengeType : uint8
-{
-	None = 0,
-	Daily = 1,
-	Weekly = 2,
-	Weapon = 3
 };
 
 UENUM(BlueprintType)
@@ -686,6 +740,101 @@ public:
 };
 
 USTRUCT(Blueprintable)
+struct FTextTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText Text;
+};
+
+USTRUCT(Blueprintable)
+struct FBotProfileData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString Name;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UTexture2D> Avatar;      
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString AvatarPath;                     
+};
+
+USTRUCT(Blueprintable)
+struct FStringTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString String;
+};
+
+USTRUCT(Blueprintable)
+struct FAnnouncerEvent : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString EventName;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText SubtitleText;
+};
+
+USTRUCT(Blueprintable)
+struct FTipData : public FTextTableRow
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool KeyboardOnly;
+};
+
+USTRUCT(Blueprintable)
+struct FMouseButtonData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FKey Key;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UTexture2D* Icon;
+};
+
+USTRUCT(Blueprintable)
+struct FGamepadButtonData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FKey Key;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FName ActionName;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UTexture2D* Icon;
+};
+
+USTRUCT(Blueprintable)
 struct FPWTableRowBase : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -703,6 +852,64 @@ public:
 };
 
 USTRUCT(Blueprintable)
+struct FTutorialStepData
+{
+	GENERATED_BODY()
+
+public:
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText Description;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 GoalID;
+};
+
+USTRUCT(Blueprintable)
+struct FSubtitleInfo
+{
+	GENERATED_BODY()
+
+public:
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 StartTimeSeconds;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 EndTimeSeconds;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString TableKey;
+};
+
+USTRUCT(Blueprintable)
+struct FVideoInfo
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UMediaSource* MediaSource;  
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FSubtitleInfo> Subtitles;
+};
+
+USTRUCT(Blueprintable)
+struct FTutorialStageData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FTutorialStepData> Steps;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FVideoInfo VideoInfo;
+};
+
+USTRUCT(Blueprintable)
 struct FMapData : public FPWTableRowBase
 {
 	GENERATED_BODY()
@@ -714,6 +921,436 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<EMapSelectability> Selectability;
+};
+
+USTRUCT(Blueprintable)
+struct FGameModeData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSubclassOf<AGameMode> DefaultClass;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString Alias;                     
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText Description;               
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText ScoreFormatText;           
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 MaxPlayers;                
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString SoundName;                 
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<EGameModeSelectability> Selectability;             
+};
+
+USTRUCT(Blueprintable)
+struct FMapModeCombos
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 ModeID;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<int32> MapIDs;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EVotingPriority VotingPriority;
+};
+
+USTRUCT(Blueprintable)
+struct FPlaylistData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString InternalName;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EPlaylistType PlaylistType;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText Description;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 MaxPartySize;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FMapModeCombos> MapModeCombos;
+};
+
+USTRUCT(Blueprintable)
+struct FCustomizationItem : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	ECustomizationType CustomizationType;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	ECustomizationRarity Rarity;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	ECustomizationAvailability Availability;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString AvailabilityInfo;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 SecondaryCurrencyCost;
+};
+
+USTRUCT(Blueprintable)
+struct FSkin : public FCustomizationItem
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UMaterialInstance>      MaterialInstance;
+};
+
+USTRUCT(Blueprintable)
+struct FWeaponSkin : public FSkin
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<USkeletalMesh> Mesh1P;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UStaticMesh> Mesh3P;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UTexture2D> Decal;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FName AmmoCounterSocketName;
+};
+
+USTRUCT(Blueprintable)
+struct FSuitSkin : public FSkin
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText SuitName;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<USkeletalMesh> Mesh3P;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<USkeletalMesh> FemaleMesh3P;
+};
+
+USTRUCT(Blueprintable)
+struct FChestSkin : public FSuitSkin
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<USkeletalMesh> Mesh1P;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FName JetpackSocketName;
+};
+
+USTRUCT(Blueprintable)
+struct FJetpackSkin : public FSkin
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText JetpackName;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UStaticMesh> Mesh;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UStaticMesh> FlamesMesh;
+};
+
+USTRUCT(Blueprintable)
+struct FPortalSkin : public FSkin
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UStaticMesh> Mesh;
+};
+
+USTRUCT(Blueprintable)
+struct FPortalGunSkin : public FWeaponSkin
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText PortalGunName;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UAnimSequence> FireAnimation;
+};
+
+USTRUCT(Blueprintable)
+struct FNameTagItem : public FCustomizationItem
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FLinearColor TextColor;         
+};
+
+USTRUCT(Blueprintable)
+struct FEmote : public FCustomizationItem
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UAnimSequence> AnimationSequence;
+};
+
+USTRUCT(Blueprintable)
+struct FEmblemItem : public FCustomizationItem
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UTexture2D> EmblemTexture;
+};
+
+USTRUCT(Blueprintable)
+struct FRewardData
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	ERewardType RewardType;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 CustomizationType;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 RewardValue;
+};
+
+USTRUCT(Blueprintable)
+struct FChallengeData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EChallengeType ChallengeType;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 TargetValue;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FRewardData Reward;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 GroupId;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString GroupName;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString StatType;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FString> ExcludedPlaylists;
+};
+
+USTRUCT(Blueprintable)
+struct FBattlePassData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 MinXP;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 MaxXP;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FRewardData> FreeRewards;
+		
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FRewardData> PremiumRewards;
+};
+
+USTRUCT(Blueprintable)
+struct FMicroTxnPurchasable : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FText Price;
+			
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 CurrencyAmount;
+			
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 BonusCurrencyAmount;
+			
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TMap<FString, int32> Prices;
+			
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString Description;
+};
+
+USTRUCT(Blueprintable)
+struct FRankData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 RankDownXP;
+			
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 RankUpXP;
+};
+
+USTRUCT(Blueprintable)
+struct FProgressionData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 XPDifference;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 LevelUpXP;                                     
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FRewardData Reward;                                  
+};
+
+USTRUCT(Blueprintable)
+struct FRegionData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString PingURL;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString InternalName;                                
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<ERegionSelectability> Selectability;          
+};
+
+USTRUCT(Blueprintable)
+struct FPlayStreakData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FRewardData Reward;
+};
+
+USTRUCT(Blueprintable)
+struct FCheckInData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FRewardData> Rewards;   
+};
+
+USTRUCT(Blueprintable)
+struct FRedeemableData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 CurrencyCost;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 Amount;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString Description;
+};
+
+USTRUCT(Blueprintable)
+struct FMedalData : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FString SoundName; 
+};
+
+USTRUCT(Blueprintable)
+struct FWeaponMetadata : public FPWTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSubclassOf<class AActor> DefaultClass;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 CrosshairWeaponID;
 };
 
 /**
