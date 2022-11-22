@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "PakCreator",
+	"Description": "Editor Toolbar button to produce a custom package based on content that gets cooked.",
+	"Category": "Modding",
+	"CreatedBy": "Adam G",
+	"CreatedByURL": "https://twitter.com/NotFakeAdam",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "PakCreator",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	]
+}

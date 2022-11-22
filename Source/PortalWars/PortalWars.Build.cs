@@ -8,7 +8,7 @@ public class PortalWars : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "PortalWarsGlobals" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "PortalWarsGlobals", "OnlineSubsystem1047Utils" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

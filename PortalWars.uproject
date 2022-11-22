@@ -40,12 +40,18 @@
 		{
 			"Name": "PortalWarsEditor",
 			"Type": "Editor",
-			"LoadingPhase": "PostEngineInit"
+			"LoadingPhase": "PostEngineInit",
+			"AdditionalDependencies": [
+				"UnrealEd"
+			]
 		},
 		{
 			"Name": "OnlineSubsystem1047Utils",
 			"Type": "Runtime",
-			"LoadingPhase": "PostConfigInit"
+			"LoadingPhase": "PostConfigInit",
+			"AdditionalDependencies": [
+				"CoreUObject"
+			]
 		}
 	],
 	"Plugins": [
@@ -76,5 +82,8 @@
 			"Name": "WebBrowserWidget",
 			"Enabled": true
 		}
+	],
+	"TargetPlatforms": [
+		"WindowsNoEditor"
 	]
 }
